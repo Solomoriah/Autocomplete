@@ -29,7 +29,8 @@ var Autocomplete = function(el, options){
     maxHeight:300,
     deferRequestBy:0,
     width:0,
-    container:null
+    container:null,
+    extraParms:''
   };
   if(options){ Object.extend(this.options, options); }
   if(Autocomplete.isDomLoaded){
@@ -68,7 +69,7 @@ Autocomplete.prototype = {
     if (!this.options.width) { this.options.width = this.el.getWidth(); }
 
     var div = new Element('div', { style: 'position:absolute;' });
-    div.update('<div class="autocomplete-w1"><div class="autocomplete-w2"><div class="autocomplete" id="Autocomplete_' + this.id + '" style="display:none; width:' + this.options.width + 'px;"></div></div></div>');
+    div.update('<div class="autocomplete" id="Autocomplete_' + this.id + '" style="display:none; width:' + this.options.width + 'px;"></div>');
 
     this.options.container = $(this.options.container);
     if (this.options.container) {
@@ -91,8 +92,11 @@ Autocomplete.prototype = {
   },
 
   fixPosition: function() {
-    var offset = this.el.cumulativeOffset();
-    $(this.mainContainerId).setStyle({ top: (offset.top + this.el.getHeight()) + 'px', left: offset.left + 'px' });
+    var layout = this.el.getLayout();
+    $(this.mainContainerId).setStyle({
+        top: (layout.get("top") + layout.get("height")) + 'px',
+        left: layout.get("left") + 'px'
+    });
   },
 
   enableKillerFn: function() {
@@ -184,7 +188,7 @@ Autocomplete.prototype = {
       this.suggest();
     } else if (!this.isBadQuery(this.currentValue)) {
       new Ajax.Request(this.serviceUrl, {
-        parameters: { query: this.currentValue },
+        parameters: { query: this.currentValue, extraparms: this.extraParms },
         onComplete: this.processResponse.bind(this),
         method: 'get'
       });
@@ -264,6 +268,7 @@ Autocomplete.prototype = {
       this.ignoreValueChange = true;
       this.hide();
       this.onSelect(i);
+      this.el.focus();
     }
   },
 
@@ -304,3 +309,4 @@ Autocomplete.prototype = {
 };
 
 Event.observe(document, 'dom:loaded', function(){ Autocomplete.isDomLoaded = true; }, false);
+
