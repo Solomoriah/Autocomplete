@@ -3,6 +3,7 @@ Autocomplete
 
 Ajax Autocomplete for Prototype
 Copyright 2010 Tomas Kirda
+
 Revised edition Copyright 2013 Chris Gonnerman
 
 See the LICENSE file for license details.
