@@ -69,3 +69,62 @@ Notes:
 > suggestions - comma separated array of suggested values
 > data (optional) - data array, that contains values for callback function when data is selected.
 
+Styling
+=======
+
+Script generates the following HTML (sample query Li). Active element when you
+navigate up and down is marked with class "selected". You can style it any way
+you wish.
+
+    <div class="autocomplete-w1">
+      <div style="width:299px;" id="Autocomplete_1240430421731" class="autocomplete">
+        <div><strong>Li</strong>beria</div>
+        <div><strong>Li</strong>byan Arab Jamahiriya</div>
+        <div><strong>Li</strong>echtenstein</div>
+        <div class="selected"><strong>Li</strong>thuania</div>
+      </div>
+    </div>
+
+Here is style used in the sample above:
+
+    .autocomplete-w1 {
+      background:url(img/shadow.png) no-repeat bottom right;
+      position:absolute;
+      top:4px;
+      left:3px;
+      /* IE6 fix: */ _background:none;
+      _top:1px;
+    }
+
+    .autocomplete {
+      width:300px;
+      border:1px solid #999;
+      background:#FFF;
+      cursor:default;
+      text-align:left;
+      max-height:350px;
+      overflow:auto;
+      margin:-6px 6px 6px -6px;
+      /* IE specific: */ _height:350px;
+      _margin:0px 6px 6px 0;
+      overflow-x:hidden;
+    }
+
+    .autocomplete .selected {
+      background:#F0F0F0;
+    }
+
+    .autocomplete div {
+      padding:2px 5px;
+      white-space:nowrap;
+    }
+
+    .autocomplete strong {
+      font-weight:normal;
+      color:#3399FF;
+    }
+
+If you will use this CSS, please make sure to correct path to the shadow.png
+image. Image is included in the package. It uses CSS Drop Shadow technique by
+Sergio Villarreal.
+
